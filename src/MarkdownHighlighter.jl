@@ -39,7 +39,7 @@ function Markdown.term(io::IO, md::Markdown.Code, columns)
 
     if do_syntax && HIGHLIGHT_MARKDOWN[]
         for (i, (sourcecode, output)) in enumerate(zip(sourcecodes, outputs))
-            tokens = collect(tokenize(sourcecode))
+            tokens = collect(tokenize(sourcecode; operators_as_identifiers=false))
             crayons = fill(Crayon(), length(tokens))
             SYNTAX_HIGHLIGHTER_SETTINGS(crayons, tokens, 0, sourcecode)
             buff = IOBuffer()
