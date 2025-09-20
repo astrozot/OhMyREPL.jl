@@ -22,7 +22,7 @@ const PASS_HANDLER = PassHandler()
 function test_pass(io::IO, f, str::Union{String, IO}, cursorpos::Int = 1, cursormovement::Bool = false)
     rpc = PassHandler()
     add_pass!(rpc, "TestPass", f)
-    tokens = tokenize(str)
+    tokens = tokenize(str; operators_as_identifiers=false)
     apply_passes!(rpc, tokens, str, cursorpos, cursormovement)
     untokenize_with_ANSI(io, rpc.accum_crayons, tokens, str)
 end
@@ -32,7 +32,7 @@ test_pass(f, str::Union{String, IOBuffer}, cursorpos::Int = 1, cursormovement::B
 
 function test_passes(io::IO, rpc::PassHandler, str::Union{String, IOBuffer}, cursorpos::Int = 1, cursormovement::Bool = false)
     b = IOBuffer()
-    tokens = tokenize(str)
+    tokens = tokenize(str; operators_as_identifiers=false)
     apply_passes!(rpc, tokens, str, cursorpos, cursormovement)
     untokenize_with_ANSI(io, rpc.accum_crayons, tokens, str)
 end
