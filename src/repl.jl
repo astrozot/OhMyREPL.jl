@@ -68,7 +68,7 @@ function rewrite_with_ANSI(s, cursormove::Bool = false)
     # Insert colorized text from running the passes
     seekstart(buffer(s))
     str = read(buffer(s), String)
-    tokens = tokenize(str)
+    tokens = tokenize(str; operators_as_identifiers=false)
     apply_passes!(PASS_HANDLER, tokens, str, cursoridx, cursormove)
     untokenize_with_ANSI(outbuf, PASS_HANDLER, tokens, str, l)
 
